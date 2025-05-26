@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SessionRepository extends JpaRepository<Session, Integer> {
 
-    List<Session> findByFkUser_UserId(Integer userId);
+    List<Session> findByFkUser_UserIdOrderBySessionDateDesc(Integer userId);
 
     List<Session> findBySessionDate(Date tomorrow);
 }

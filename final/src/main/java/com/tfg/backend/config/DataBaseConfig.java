@@ -120,7 +120,7 @@ public abstract class DataBaseConfig {
     public static final String BOARDGAME_COLUMN_BOARDGAME_NAME = BOARDGAME_ENTITY + ENTITY_NAME;
     public static final int BOARDGAME_NAME_MIN_CHARACTERS = 2;
     public static final int BOARDGAME_NAME_MAX_CHARACTERS = 120;
-    public static final String BOARDGAME_COLUMN_BOARDGAME_NAME_DEFINITION = TYPE_VARCHAR + " (" + BOARDGAME_NAME_MAX_CHARACTERS + ") UNIQUE NOT NULL";
+    public static final String BOARDGAME_COLUMN_BOARDGAME_NAME_DEFINITION = TYPE_VARCHAR + " (" + BOARDGAME_NAME_MAX_CHARACTERS + ") NOT NULL";
 
     public static final String BOARDGAME_COLUMN_API_BGG_REF = "api_bgg_ref";
     public static final int BOARDGAME_API_BGG_REF_MAX_CHARACTERS = 255;
@@ -136,7 +136,7 @@ public abstract class DataBaseConfig {
     public static final String BOARDGAME_COLUMN_RELEASE_YEAR_DEFINITION = TYPE_INT;
     
     public static final String BOARDGAME_COLUMN_DESCRIPTION = BOARDGAME_ENTITY + "description";
-    public static final int BOARDGAME_DESCRIPTION_MAX_CHARACTERS = 3000;
+    public static final int BOARDGAME_DESCRIPTION_MAX_CHARACTERS = 10000;
     public static final String BOARDGAME_COLUMN_DESCRIPTION_DEFINITION = TYPE_VARCHAR + " (" + BOARDGAME_DESCRIPTION_MAX_CHARACTERS + ")";
 
     public static final String BOARDGAME_COLUMN_IMAGE_ENDPOINT = BOARDGAME_ENTITY + "image_endpoint";

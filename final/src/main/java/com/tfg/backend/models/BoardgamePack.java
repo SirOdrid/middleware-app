@@ -2,6 +2,7 @@ package com.tfg.backend.models;
 
 import javax.xml.crypto.Data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tfg.backend.config.DataBaseConfig;
 
 import jakarta.persistence.Column;
@@ -22,6 +23,7 @@ public class BoardgamePack {
     @Column(name = DataBaseConfig.PK_BOARDGAME_PACK_ENTITY)
     private Integer boardgamePackId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = DataBaseConfig.BOARDGAME_PACK_COLUMN_PACK, nullable = false)
     private Pack fkPack;

@@ -59,5 +59,10 @@ public class MeetingService {
             .orElseThrow(() -> new ResourceNotFoundException(ErrorMessageRNF.SESSION_RNF));                  
         return meetingRepository.findByFkSession_SessionId(sessionId);
     }
+
+    @Transactional
+    public List<Meeting> getMeetingByUser(Integer userId) {                 
+        return meetingRepository.findByFkSessionFkUserUserId(userId);
+    }
     
 }

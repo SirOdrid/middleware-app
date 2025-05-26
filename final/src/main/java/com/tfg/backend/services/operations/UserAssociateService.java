@@ -31,11 +31,16 @@ public class UserAssociateService {
         User associatedUser = userRepository.findById(request.fkAssociatedUserId())
             .orElseThrow(() -> new ResourceNotFoundException(ErrorMessageRNF.USER_RNF));
 
-        UserAssociate association = new UserAssociate();
-        association.setFkHostUser(hostUser);
-        association.setFkAssociatedUser(associatedUser);
-        association.setAssociationDate(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        return userAssociateRepository.save(association);
+        if(!userAssociateRepository.existsByFkHostUserAndFkAssociatedUser(hostUser, associatedUser)){
+            UserAssociate association = new UserAssociate();
+            association.setFkHostUser(hostUser);
+            association.setFkAssociatedUser(associatedUser);
+            association.setAssociationDate(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            return userAssociateRepository.save(association);
+        }else{
+            return userAssociateRepository.findByFkHostUserAndFkAssociatedUser(hostUser, associatedUser).get();
+        } 
+        
     }
 
     public void deleteAssociation(Integer associationId) {
@@ -44,25 +49,18 @@ public class UserAssociateService {
         }
     }
 
-    public List<User> getAllAssociationsByHostUser(Integer hostUserId) {
+    public List<UserAssociate> getAllAssociationsByHostUser(Integer hostUserId) {
         User hostUser = userRepository.findById(hostUserId)
         .orElseThrow(() -> new ResourceNotFoundException(ErrorMessageRNF.USER_RNF));
     
-        return userAssociateRepository.findByFkHostUser(hostUser).stream()
-            .map(UserAssociate::getFkAssociatedUser)
-            .distinct()
-            .collect(Collectors.toList());
+        return userAssociateRepository.findByFkHostUser(hostUser);
     }
 
-    public List<User> getAllAssociationsByAssociatedUser(Integer associatedUserId) {
+    public List<UserAssociate> getAllAssociationsByAssociatedUser(Integer associatedUserId) {
         User associatedUser = userRepository.findById(associatedUserId)
             .orElseThrow(() -> new ResourceNotFoundException(ErrorMessageRNF.USER_RNF));
         
-        List<UserAssociate> associations = userAssociateRepository.findByFkAssociatedUser(associatedUser);
-        
-        return associations.stream()
-            .map(UserAssociate::getFkHostUser)
-            .distinct()
-            .collect(Collectors.toList());
+        List<UserAssociate> associations = userAssociateRepository.findByFkAssociatedUser(associatedUser);   
+        return associations;
     }
 }

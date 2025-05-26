@@ -138,4 +138,8 @@ public class UserService {
             }
         });
     }
+
+    public List<User> searchUserByName(String name_user) {  
+        return userRepository.findByUserNameContainingIgnoreCase(name_user);
+    }
 }

@@ -1,8 +1,6 @@
 package com.tfg.backend.models;
 import java.util.Date;
 
-import javax.xml.crypto.Data;
-
 import com.tfg.backend.config.DataBaseConfig;
 
 import jakarta.persistence.Column;

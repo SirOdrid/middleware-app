@@ -26,7 +26,7 @@ public class PackService {
     private UserRepository userRepository;
 
     @Transactional
-    public void createPack(PackRequest packRequest) {
+    public Pack createPack(PackRequest packRequest) {
 
         if(packRepository.existsByPackNameAndFkUser_UserId(packRequest.packNameRq(), packRequest.fkUserRq())){
             throw new ConflictException(ErrorMessageConflicts.packNameByUserExists(packRequest.packNameRq()));
@@ -38,7 +38,7 @@ public class PackService {
         Pack newPack = new Pack();
         newPack.setFkUser(user);
         newPack.setPackName(packRequest.packNameRq());       
-        packRepository.save(newPack);
+        return packRepository.save(newPack);
     }
 
     @Transactional

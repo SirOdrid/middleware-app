@@ -56,4 +56,12 @@ public class MeetingController {
         List<Meeting> meetings = meetingService.getMeetingBySession(sessionId);
         return new ResponseEntity<>(meetings, HttpStatus.OK);
     }
+
+    // Get all Meetings to User
+    @CrossOrigin
+    @GetMapping(ApiConfig.ENDPOINT_MEETING_ALL_BY_USER)
+    public ResponseEntity<List<Meeting>> getMeetingByUser(@PathVariable(ApiConfig.PATH_USER_ID) Integer userId) {
+        List<Meeting> meetings = meetingService.getMeetingByUser(userId);
+        return new ResponseEntity<>(meetings, HttpStatus.OK);
+    }
 }

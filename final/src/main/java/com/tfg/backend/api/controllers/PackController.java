@@ -38,8 +38,8 @@ public class PackController {
     @CrossOrigin
     @PostMapping(ApiConfig.ENDPOINT_PACK_CREATE)
     public ResponseEntity<?> createPack(@Valid @RequestBody PackRequest packRequest) {
-        packService.createPack(packRequest);       
-        return new ResponseEntity<>(HttpStatus.CREATED);       
+        Pack newPack = packService.createPack(packRequest);       
+        return new ResponseEntity<>(newPack, HttpStatus.CREATED);       
     }
 
     // Delete Pack to User

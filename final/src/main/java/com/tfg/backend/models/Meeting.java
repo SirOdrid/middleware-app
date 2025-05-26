@@ -27,7 +27,7 @@ public class Meeting {
     @Column(name = DataBaseConfig.PK_MEETING_ENTITY)
     private Integer meetingId;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = DataBaseConfig.MEETING_COLUMN_SESSION, nullable = false)
     private Session fkSession;

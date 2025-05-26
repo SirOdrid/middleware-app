@@ -27,7 +27,6 @@ public class Pack {
     @Column(name = DataBaseConfig.PK_PACK_ENTITY)
     private Integer packId;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = DataBaseConfig.PACK_COLUMN_USER, nullable = false)
     private User fkUser;
@@ -35,7 +34,6 @@ public class Pack {
     @Column(name = DataBaseConfig.PACK_COLUMN_PACK_NAME, columnDefinition = DataBaseConfig.PACK_COLUMN_PACK_NAME_DEFINITION)
     private String packName;
     
-    @JsonIgnore
     @OneToMany(mappedBy = "fkPack", cascade = CascadeType.ALL)
     private List<BoardgamePack> boardgamePacks;
 

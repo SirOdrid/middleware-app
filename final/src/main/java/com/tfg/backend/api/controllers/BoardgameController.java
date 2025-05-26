@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tfg.backend.api.request.BoardgameRequest;
 import com.tfg.backend.config.ApiConfig;
 import com.tfg.backend.models.Boardgame;
-import com.tfg.backend.services.operations.BoardGameService;
+import com.tfg.backend.services.operations.BoardgameService;
 
 import jakarta.validation.Valid;
 
@@ -26,9 +26,9 @@ import jakarta.validation.Valid;
 public class BoardgameController {
 
     @Autowired
-    private final BoardGameService boardgameService;
+    private final BoardgameService boardgameService;
 
-    public BoardgameController(BoardGameService boardGameService) {
+    public BoardgameController(BoardgameService boardGameService) {
         this.boardgameService = boardGameService;
     }
 

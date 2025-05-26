@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tfg.backend.api.request.BoardgameRequest;
-import com.tfg.backend.data.ErrorMessages.ErrorMessageConflicts;
 import com.tfg.backend.data.ErrorMessages.ErrorMessageRNF;
-import com.tfg.backend.exceptions.exceptions.ConflictException;
 import com.tfg.backend.exceptions.exceptions.ResourceNotFoundException;
 import com.tfg.backend.models.Boardgame;
 import com.tfg.backend.models.BoardgameGender;
@@ -16,7 +14,7 @@ import com.tfg.backend.models.BoardgameType;
 import com.tfg.backend.repository.BoardgameRepository;
 
 @Service
-public class BoardGameService {
+public class BoardgameService {
 
     
     // DEPENDENCIES \
@@ -32,11 +30,17 @@ public class BoardGameService {
 
     // Add boardgame 
     public Boardgame addBoardGame (BoardgameRequest boardGameRequest){
-        validateUniqueValues(-1,boardGameRequest);
         if(boardgameRepository.existsByApiBggRef(boardGameRequest.refApiBggRq())) {
-            throw new ConflictException(ErrorMessageConflicts.boardGameApiRefExists());
+            return boardgameRepository.getByBoardgameName(boardGameRequest.boardgameNameRq());
         }
         return boardgameRepository.save(mapToBoardgame(boardGameRequest));
+    }
+
+    public Boardgame addBoardGame (Boardgame boardgame){
+        if(boardgameRepository.existsByApiBggRef(boardgame.getApiBggRef())) {
+            return boardgameRepository.getByApiBggRef(boardgame.getApiBggRef());
+        }
+        return boardgameRepository.save(boardgame);
     }
            
     // Get boadgame by ID
@@ -75,21 +79,4 @@ public class BoardGameService {
 
         return boardgame;
     }
-
-    private void validateUniqueValues(int id, BoardgameRequest boardGameRequest) {
-        boardgameRepository.findByBoardgameName(boardGameRequest.boardgameNameRq()).ifPresent(boardGame -> {
-            if (boardGame.getBoardgameId() != id || id == -1) {
-                throw new ConflictException(ErrorMessageConflicts.boardGameNameExists(boardGameRequest.boardgameNameRq()));
-            }
-        });
-    }
-
-//     private void validateApiRef(BoardgameRequest boardGameRequest) {
-//         if(boardGameRequest.refApiBgg().isEmpty()){
-//             return;
-//         }
-//         boardGameRepository.findByApiBggRef(boardGameRequest.boardgameName()).ifPresent(boardGame -> {
-//                throw new ConflictException(ErrorMessageConflicts.boardGameNameExists(boardGameRequest.boardgameName()));
-//         });
-//    }
 }

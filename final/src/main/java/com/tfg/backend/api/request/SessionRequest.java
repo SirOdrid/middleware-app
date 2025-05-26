@@ -20,7 +20,7 @@ public record SessionRequest (
     String sessionNameRq,
     
     @NotNull(message = ErrorMessageRequests.SESSION_DATE_NULL)
-    @FutureOrPresent(message = ErrorMessageRequests.FUTURE_OR_PRESENT_DATE)
+    // @FutureOrPresent(message = ErrorMessageRequests.FUTURE_OR_PRESENT_DATE)
     Date sessionDateRq,
     
     @NotNull(message = ErrorMessageRequests.USER_NULL)

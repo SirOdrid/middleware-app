@@ -36,8 +36,7 @@ public class Session {
     @Column(name = DataBaseConfig.SESSION_COLUMN_SESSION_DATE, columnDefinition = DataBaseConfig.SESSION_COLUMN_SESSION_DATE_DEFINITION)
     @Temporal(TemporalType.DATE)
     private Date sessionDate;
-   
-    @JsonIgnore
+    
     @ManyToOne
     @JoinColumn(name = DataBaseConfig.SESSION_COLUMN_SESSION_HOST, nullable = false)
     private User fkUser;

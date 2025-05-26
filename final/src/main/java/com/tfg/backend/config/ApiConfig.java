@@ -117,6 +117,7 @@ public abstract class ApiConfig {
     public static final String ENDPOINT_MEETING_CREATE = ENDPOINT_CREATE;
     public static final String ENDPOINT_MEETING_DELETE = ENTRY_MEETING_ID;
     public static final String ENDPOINT_MEETING_ALL_BY_SESSION = ENDPOINT_GET_ALL + ENTITY_SESSION + ENTRY_SESSION_ID;
+    public static final String ENDPOINT_MEETING_ALL_BY_USER = ENDPOINT_GET_ALL + ENTITY_USER + ENTRY_USER_ID;
 
     // SESSION
     public static final String ENDPOINT_SESSION_CREATE = ENDPOINT_CREATE;

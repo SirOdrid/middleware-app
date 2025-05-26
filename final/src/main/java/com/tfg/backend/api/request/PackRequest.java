@@ -13,8 +13,7 @@ public record PackRequest (
     Integer fkUserRq,
 
     @NotBlank(message = ErrorMessageRequests.PACK_NAME_NULL)
-    @Size(  min = DataBaseConfig.PACK_NAME_MIN_CHARACTERS, 
-            max = DataBaseConfig.PACK_NAME_MAX_CHARACTERS, 
+    @Size(  min = DataBaseConfig.PACK_NAME_MIN_CHARACTERS,  
             message = ErrorMessageRequests.PACK_NAME_SIZE)
     String packNameRq
 ){}

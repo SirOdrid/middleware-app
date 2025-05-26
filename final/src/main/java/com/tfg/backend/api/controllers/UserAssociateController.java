@@ -4,6 +4,7 @@ package com.tfg.backend.api.controllers;
 import com.tfg.backend.api.request.UserAssociateRequest;
 import com.tfg.backend.config.ApiConfig;
 import com.tfg.backend.models.User;
+import com.tfg.backend.models.UserAssociate;
 import com.tfg.backend.services.operations.UserAssociateService;
 
 import jakarta.validation.Valid;
@@ -40,15 +41,15 @@ public class UserAssociateController {
 
     @CrossOrigin
     @GetMapping(ApiConfig.ENDPOINT_ASSOCIATED_USERS_BY_HOST)
-    public ResponseEntity<List<User>> getAllAssociationsByHostUser(@PathVariable("id_user") Integer hostUserId) {
-        List<User> associations = userAssociateService.getAllAssociationsByHostUser(hostUserId);
+    public ResponseEntity<List<UserAssociate>> getAllAssociationsByHostUser(@PathVariable("id_user") Integer hostUserId) {
+        List<UserAssociate> associations = userAssociateService.getAllAssociationsByHostUser(hostUserId);
         return new ResponseEntity<>(associations, HttpStatus.OK);
     }
 
     @CrossOrigin
     @GetMapping(ApiConfig.ENDPOINT_ASSOCIATIONS_BY_USER)
-    public ResponseEntity<List<User>> getAllAssociationsByAssociatedUser(@PathVariable("id_user") Integer associatedUserId) {
-        List<User> associations = userAssociateService.getAllAssociationsByAssociatedUser(associatedUserId);
+    public ResponseEntity<List<UserAssociate>> getAllAssociationsByAssociatedUser(@PathVariable("id_user") Integer associatedUserId) {
+        List<UserAssociate> associations = userAssociateService.getAllAssociationsByAssociatedUser(associatedUserId);
         return new ResponseEntity<>(associations, HttpStatus.OK);
     }
 }

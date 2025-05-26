@@ -69,7 +69,7 @@ public class SessionService {
         if (!userRepository.existsById(userId)) {
             throw new ResourceNotFoundException(ErrorMessageRNF.USER_RNF);
         }
-        return sessionRepository.findByFkUser_UserId(userId);
+        return sessionRepository.findByFkUser_UserIdOrderBySessionDateDesc(userId);
     }
 
 }

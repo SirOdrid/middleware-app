@@ -86,11 +86,11 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    // // Get all users
-    // @GetMapping("/all")
-    // public List<User> getAllUsers() {
-    //     return userService.getAllUsers();
-    // }
+    // Get all users
+    @GetMapping("/search/{name_user}")
+    public List<User> searchUserByName(@PathVariable String name_user) {
+        return userService.searchUserByName(name_user);
+    }
 
     // // Get user by ID
     // @GetMapping("/{id_user}")

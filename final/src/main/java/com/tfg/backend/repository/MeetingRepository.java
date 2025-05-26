@@ -14,4 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface MeetingRepository extends JpaRepository<Meeting, Integer> {
 
     List<Meeting> findByFkSession_SessionId(Integer sessionId);
+    
+    List<Meeting> findByFkSessionFkUserUserId(Integer userId);
+
 }
