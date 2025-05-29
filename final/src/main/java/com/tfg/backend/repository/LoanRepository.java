@@ -13,6 +13,7 @@ import com.tfg.backend.models.User;
 public interface LoanRepository extends JpaRepository<Loan, Integer> {
     List<Loan> findByFkStock(Stock stock);
     List<Loan> findByFkUser(User user);
+    List<Loan> findByFkStock_FkUser_UserId(Integer userId);
     List<Loan> findByExpirationDate(Date yesterday);
     List<Loan> findByLoanDate(Date tomorrow);
     // List<Loan> findByExpirationDateAndFkLoanState_LoanStateName(Date yesterday, String string);

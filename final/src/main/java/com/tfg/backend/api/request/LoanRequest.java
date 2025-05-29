@@ -10,7 +10,7 @@ public record LoanRequest(
     Date loanDateRq,
     
     @NotNull(message = ErrorMessageRequests.LOAN_EXPIRATION_DATE_NULL)
-    @Future(message = ErrorMessageRequests.LOAN_EXPIRATION_DATE_NOT_VALID)
+    // @FutureOrPresent(message = ErrorMessageRequests.LOAN_EXPIRATION_DATE_NOT_VALID)
     Date expirationDateRq,
     
     @NotNull(message = ErrorMessageRequests.USER_NULL)

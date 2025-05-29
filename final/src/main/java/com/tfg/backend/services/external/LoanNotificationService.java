@@ -12,16 +12,25 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tfg.backend.api.request.LoanRequest;
 import com.tfg.backend.data.NotificationMessages;
 import com.tfg.backend.models.Loan;
 import com.tfg.backend.models.User;
 import com.tfg.backend.repository.LoanRepository;
+import com.tfg.backend.repository.LoanStateRepository;
+import com.tfg.backend.services.operations.LoanService;
 
 @Service
 public class LoanNotificationService {
 
     @Autowired
+    private LoanService loanService;
+    
+    @Autowired
     private LoanRepository loanRepository;
+
+    @Autowired
+    private LoanStateRepository loanStateRepository;
 
     @Transactional
     @Scheduled(cron = NotificationMessages.LOAN_NOTICE_TIME) 
@@ -37,6 +46,19 @@ public class LoanNotificationService {
     @Scheduled(cron = NotificationMessages.CADUCATED_LOAN_NOTICE_TIME) 
     public void sendCaducatedLoanReport() {
         List<Loan> expiredLoans = loanRepository.findExpiredLoans();
+
+        //recorrer listado de expiredLoans
+        for (Loan loan : expiredLoans) {
+            loanService.updateLoan(loan.getLoanId(), new LoanRequest(
+                loan.getLoanDate(), 
+                loan.getExpirationDate(), 
+                loan.getFkUser().getUserId(), 
+                loan.getFkStock().getStockId(), 
+                loanStateRepository.findByLoanStateName("retraso").getLoanStateId()
+            ));
+        }
+
+
         Map<User, List<Loan>> loansByOwner = expiredLoans.stream()
             .collect(Collectors.groupingBy(loan -> loan.getFkStock().getFkUser()));
         

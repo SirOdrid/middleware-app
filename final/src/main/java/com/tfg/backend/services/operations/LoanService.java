@@ -86,6 +86,6 @@ public class LoanService {
     public List<Loan> getAllLoansByUserId(Integer userId) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new ResourceNotFoundException(ErrorMessageRNF.USER_RNF));
-        return loanRepository.findByFkUser(user);
+        return loanRepository.findByFkStock_FkUser_UserId(user.getUserId());
     }
 }

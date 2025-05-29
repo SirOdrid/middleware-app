@@ -1,5 +1,7 @@
 package com.tfg.backend.api.request;
 
+import java.sql.Date;
+
 import com.tfg.backend.config.DataBaseConfig;
 import com.tfg.backend.data.ErrorMessages.ErrorMessageRequests;
 
@@ -35,7 +37,7 @@ public record UserRequest(
     boolean emailNotificationsRq,
 
     @NotNull(message = ErrorMessageRequests.USER_CREATION_DATE_NULL)
-    Long creationDateRq,
+    Date creationDateRq,
 
     @NotBlank(message = ErrorMessageRequests.USER_COUNTRY_NULL)
     String fkCountryNameRq,

@@ -112,7 +112,7 @@ public class UserService {
         user.setUserName(userRequest.userNameRq());
         user.setPassHash(userRequest.passHashRq());
         user.setEmail(userRequest.emailRq());
-        user.setCreationDate(new Date(userRequest.creationDateRq()));
+        user.setCreationDate(userRequest.creationDateRq());
         user.setProfileImage(userRequest.profileImageRq());
         user.setPhoneNumber(userRequest.phoneNumberRq());
         user.setEmailNotifications(userRequest.emailNotificationsRq());

@@ -33,12 +33,10 @@ public class Loan {
     @Temporal(TemporalType.DATE)
     private Date expirationDate;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = DataBaseConfig.LOAN_COLUMN_USER, nullable = false)
     private User fkUser;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = DataBaseConfig.LOAN_COLUMN_STOCK, nullable = false)
     private Stock fkStock;

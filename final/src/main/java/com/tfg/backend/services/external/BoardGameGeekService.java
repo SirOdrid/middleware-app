@@ -56,15 +56,15 @@ public class BoardGameGeekService {
     public List<Boardgame> searchTopRelevantGames(String gameName) {
         try {
 
-            // List<String> gameIds = findTopGameIdsByName(gameName, nGamesSearch);
-            // List<Boardgame> boardgamesBGG = gameIds.parallelStream()
-            //         .map(this::fetchGameDetailsWithGenre)
-            //         .filter(Objects::nonNull)
-            //         .collect(Collectors.toList());
+            List<String> gameIds = findTopGameIdsByName(gameName, nGamesSearch);
+            List<Boardgame> boardgamesBGG = gameIds.parallelStream()
+                    .map(this::fetchGameDetailsWithGenre)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
             
-            // for (Boardgame boardgame : boardgamesBGG) {
-            //    boardgameService.addBoardGame(boardgame);
-            // }
+            for (Boardgame boardgame : boardgamesBGG) {
+               boardgameService.addBoardGame(boardgame);
+            }
 
             List<Boardgame> boardgames = new ArrayList<>();
             boardgames = boardgameRepository.findByBoardgameNameIgnoreCase(gameName);
@@ -211,18 +211,17 @@ public class BoardGameGeekService {
 
         Boardgame boardgame = new Boardgame();
 
-        // Mapeo de campos básicos
+
         boardgame.setBoardgameName(getPrimaryName(item));
         boardgame.setBoardgameDescription(sanitizeDescription(getElementValue(item, "description")));
         boardgame.setBoardgameImageUrl(getElementValue(item, "image"));
         boardgame.setApiBggRef(bggId);
 
-        // Campos numéricos con manejo de valores nulos
         boardgame.setMinPlayers(getNumericAttributeValue(item, "minplayers", "value"));
         boardgame.setMaxPlayers(getNumericAttributeValue(item, "maxplayers", "value"));
-        boardgame.setReleaseYear(getNumericAttributeValue(item, "yearpublished", "value"));
+        boardgame.setReleaseYear(getNumericAttributeValue(item, "yearpublished", "value"));     
 
-        // El género se asignará posteriormente en fetchGameDetailsWithGenre
+        // El genero se asignara posteriormente en fetchGameDetailsWithGenre
         return boardgame;
     }
 
@@ -242,7 +241,7 @@ public class BoardGameGeekService {
                 return value.isEmpty() ? null : Integer.parseInt(value);
             }
         } catch (NumberFormatException e) {
-            // Log error if needed
+
         }
         return null;
     }

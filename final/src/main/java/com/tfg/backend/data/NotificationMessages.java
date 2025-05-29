@@ -13,7 +13,7 @@ public abstract class NotificationMessages {
 
     public static final String SESSION_NOTICE_TIME = "0 45 19 * * ?";
     public static final String LOAN_NOTICE_TIME = "0 08 20 * * ?";
-    public static final String CADUCATED_LOAN_NOTICE_TIME = "0 54 16 * * ?";
+    public static final String CADUCATED_LOAN_NOTICE_TIME = "0 05 22 * * ?";
 
     // SUBJECTS \\
     public static final String EMAIL_RECOVERY_SUBJECT = "🔑 Recuperación de Contraseña - TRACKER CRAWLER";
