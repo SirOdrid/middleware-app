@@ -1,4 +1,4 @@
-package com.tfg.backend.api.controllers;
+package com.tfg.backend.api.controllers.Operations;
 
 
 import com.tfg.backend.api.request.UserAssociateRequest;

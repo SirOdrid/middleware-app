@@ -1,4 +1,4 @@
-package com.tfg.backend.api.controllers;
+package com.tfg.backend.api.controllers.Operations;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

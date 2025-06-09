@@ -12,15 +12,11 @@ import com.tfg.backend.models.UserType;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    // USERNAME
     Optional<User> findByUserName(String userName);
     Optional<User> findByUserNameIgnoreCase(String userName);
     List<User> findByUserNameIgnoreCaseStartingWith(String userName);
-
     List<User> findByFkUserType(UserType userType);
     List<User> findByUserNameContainingIgnoreCase(String userName);
-
-    // EMAIL
     Optional<User> findByEmail(String email);
     
 }

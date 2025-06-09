@@ -1,6 +1,8 @@
 package com.tfg.backend.services.operations;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,8 +70,8 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorMessageRNF.USER_MAIL_RNF));
         String passwordGenerated = PasswordRecoveryService.generatePassword();
         EmailSenderService.sendEmail(userRecoveryRequest.emailRecoveryRq(), NotificationMessages.EMAIL_RECOVERY_SUBJECT,
-                NotificationMessages.generateRecoveryMessage(user.getUserName(), passwordGenerated));
-        user.setPassHash(passwordGenerated);
+                NotificationMessages.generateRecoveryMessage(user.getUserName(), passwordGenerated)); 
+        user.setPassHash(Base64.getEncoder().encodeToString(passwordGenerated.getBytes(StandardCharsets.UTF_8)));
         userRepository.save(user);
     }   
 

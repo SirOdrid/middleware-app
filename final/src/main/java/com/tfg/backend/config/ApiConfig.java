@@ -3,7 +3,7 @@ package com.tfg.backend.config;
 public abstract class ApiConfig {
     
     private static final String BASE_URL = "/tc_api/v1";
-    public static final String CROSS_ORIGIN = "*";
+    public static final String CROSS_ORIGIN = "*"; // EN PRODUCCIÓN DEBERA SER CAMBIADO
 
     // SHARED \\ 
     private static final String ENDPOINT_CREATE = "/new";

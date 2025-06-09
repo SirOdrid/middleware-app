@@ -1,4 +1,4 @@
-package com.tfg.backend.api.controllers;
+package com.tfg.backend.api.controllers.External;
 
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
-
 
 @RestController
 @RequestMapping("/proxy")
@@ -25,7 +25,8 @@ public class ImageProxyController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
             }
 
-            URL imageUrl = new URL(url);
+            URI uri = URI.create(url);
+            URL imageUrl = uri.toURL();
             HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
             connection.setRequestProperty("User-Agent", "Mozilla/5.0");
             connection.connect();
@@ -41,7 +42,7 @@ public class ImageProxyController {
 
             return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en el proxy.".getBytes());
         }
     }
 }

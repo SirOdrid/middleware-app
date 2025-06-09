@@ -63,9 +63,12 @@ public class BoardGameGeekService {
                     .collect(Collectors.toList());
             
             for (Boardgame boardgame : boardgamesBGG) {
-               boardgameService.addBoardGame(boardgame);
+                if (!boardgameRepository.existsByApiBggRef(boardgame.getApiBggRef())) {
+                    boardgameService.addBoardGame(boardgame);
+                }           
             }
-
+            
+        } catch (Exception e) {
             List<Boardgame> boardgames = new ArrayList<>();
             boardgames = boardgameRepository.findByBoardgameNameIgnoreCase(gameName);
             List<Boardgame> otherBoardgames = boardgameRepository.findByBoardgameNameContainingIgnoreCase(gameName);
@@ -76,10 +79,17 @@ public class BoardGameGeekService {
                 }
             }
             return boardgames;
-            
-        } catch (Exception e) {
-            throw new RuntimeException("Error en la búsqueda aproximada", e);
         }
+            List<Boardgame> boardgames = new ArrayList<>();
+            boardgames = boardgameRepository.findByBoardgameNameIgnoreCase(gameName);
+            List<Boardgame> otherBoardgames = boardgameRepository.findByBoardgameNameContainingIgnoreCase(gameName);
+
+            for (Boardgame game : otherBoardgames) {
+                if (!boardgames.contains(game)) {
+                    boardgames.add(game);
+                }
+            }
+            return boardgames;
     }
 
     public String getBaseGameForExpansion(String expansionName) {
@@ -97,8 +107,6 @@ public class BoardGameGeekService {
         }
     }
 
-    // --- Métodos auxiliares ---
-
     private List<String> findTopGameIdsByName(String gameName, int limit) throws Exception {
         String encodedName = URLEncoder.encode(gameName, StandardCharsets.UTF_8);
         String searchUrl = BGG_API_URL + "/search?query=" + encodedName +
@@ -111,7 +119,7 @@ public class BoardGameGeekService {
     private List<String> parseTopNGameIdsFromSearch(String xmlResponse, int limit) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes()));
+        Document doc = builder.parse(new ByteArrayInputStream(xmlResponse.getBytes("UTF-8")));
 
         NodeList items = doc.getElementsByTagName("item");
         List<String> ids = new ArrayList<>();
@@ -190,7 +198,6 @@ public class BoardGameGeekService {
         return null;
     }
 
-    // Métodos existentes que se mantienen igual...
     private String findGameIdByName(String gameName, String type) throws Exception {
         String encodedName = URLEncoder.encode(gameName, StandardCharsets.UTF_8);
         String searchUrl = BGG_API_URL + "/search?query=" + encodedName +
